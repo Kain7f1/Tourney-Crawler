@@ -22,7 +22,7 @@ from selenium.webdriver.support import expected_conditions as EC
 # start_date_str : 날짜 범위 - 시작
 # end_date_str : 날짜 범위 - 끝
 # min_players : 최소 플레이어 수 제한 - 적으면 수집 안함
-def crawl_tourney_result(url, start_date_str, end_date_str=None, min_players=100):
+def crawl_tourney_result(url, start_date_str, end_date_str=None, min_players=64):
     print("[기본값 세팅]")
     # end_date 설정안하면 오늘로 설정
     if end_date_str is None:
@@ -58,17 +58,25 @@ def crawl_tourney_result(url, start_date_str, end_date_str=None, min_players=100
         # 2. 플레이어 수
         players = int(tr.select('td')[5].text)
         if players < min_players:
-            print("인원수가 적어서 continue")
+            # print("인원수가 적어서 continue")
             continue
 
         # 3. 나머지 정보들
-        name = cr.clean_text(tr.select('td')[2].text)
+        tourney_name = tr.select('td')[2].text
+        tourney_name = cr.clean_text(tourney_name)  # 특수문자 정제
         organizer = tr.select('td')[3].text
+        organizer = cr.clean_text(organizer)        # 특수문자 정제
         winner = tr.select_one('div.winner').text
+        winner = cr.clean_text(winner)              # 특수문자 정제
+        try:
+            country = tr.select_one('img.flag')['data-tooltip']
+        except:
+            country = "Unknown"
         tourney_url = "play.limitlesstcg.com" + tr.select('td')[2].select_one('a')['href']
         tourney_url = tourney_url[:-10]     # 뒤에 standings 없애기
 
-        date_list = [date_str, name, organizer, players, winner, tourney_url]
+        #
+        date_list = [date_str, tourney_name, organizer, players, winner, country, tourney_url]
         data.append(date_list)
 
     # -------------------------------------
@@ -76,12 +84,14 @@ def crawl_tourney_result(url, start_date_str, end_date_str=None, min_players=100
     print("[엑셀 형태로 저장]")
 
     # 수집한 데이터를 데이터프레임 형태로 변환
-    df = pd.DataFrame(data, columns=["date", "name", "organizer", "players", "winner", "url"])
+    df = pd.DataFrame(data, columns=["date", "tourney_name", "organizer", "players", "winner", "country", "url"])
 
     # 엑셀 파일로 저장
     excel_file_name = f"tourney_result_{str_start_time}.csv"   # 엑셀 파일 이름. 시작시간을 덧붙어 unique하게 만들어 여러번 실행해도 파일이 덧씌워지지 않음.
     util.create_folder("./tourney_result")
     df.to_csv("./tourney_result/" + excel_file_name, encoding="utf-8", index=False)  # 엑셀로 저장
+
+    print(f"총 {len(df)}건의 데이터가 수집되었습니다.")
     print(f"데이터가 {excel_file_name} 파일로 저장되었습니다.")
     #
     print("crawl_tourney_result() 종료")

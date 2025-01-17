@@ -25,7 +25,8 @@ def timer_decorator(func):
 def create_folder(folder_path_='./'):
     # 폴더가 존재하지 않는 경우, 폴더 생성
     if os.path.exists(folder_path_):
-        print(f"[{folder_path_} 폴더가 이미 존재합니다]")
+        # print(f"[{folder_path_} 폴더가 이미 존재합니다]")
+        pass
     else:
         os.makedirs(folder_path_)
         print(f"[폴더 : {folder_path_}를 만들었습니다]")
