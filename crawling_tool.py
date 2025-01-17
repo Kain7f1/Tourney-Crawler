@@ -126,4 +126,4 @@ def clean_text(text):
     if cleaned_text and len(cleaned_text) >= 1:
         return cleaned_text
     else:
-        return "temp_name"
+        return "cleaned_txt"
