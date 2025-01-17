@@ -121,7 +121,7 @@ def is_date_between(target_date_str, start_date_str, end_date_str):
 
 # 텍스트를 정제하여 영어, 숫자, 공백, ASCII 특수문자만 남깁니다.
 def clean_text(text):
-    pattern = r"[^a-zA-Z0-9\s!\"#$%&'()*+,\-./:;<=>?@\[\\\]\^_`{|}~]"
+    pattern = r"[^a-zA-Z0-9\s!\"#$%&'()*+,\-./:;<=>?@\[\\\]\^_`{|}~\u00C0-\u00FF]"
     cleaned_text = re.sub(pattern, "", text)
     if cleaned_text and len(cleaned_text) >= 1:
         return cleaned_text
