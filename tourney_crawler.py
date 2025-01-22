@@ -72,7 +72,8 @@ def crawl_tourney_result(url, start_date_str, end_date_str=None, min_players=64)
             country = tr.select_one('img.flag')['data-tooltip']
         except:
             country = "Unknown"
-        tourney_url = "play.limitlesstcg.com" + tr.select('td')[2].select_one('a')['href']
+        limitlesstcg_url_base = "https://play.limitlesstcg.com"
+        tourney_url = limitlesstcg_url_base + tr.select('td')[2].select_one('a')['href']
         tourney_url = tourney_url[:-10]     # 뒤에 standings 없애기
 
         #

@@ -12,7 +12,7 @@ from selenium import webdriver
 #############################################################################
 #                                 << 설정값 >>
 # dcinside 헤더 :  dcinside 봇 차단을 위한 헤더 설정
-headers_dc = {
+headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
         "Connection": "keep-alive",
         "Cache-Control": "max-age=0",
@@ -26,9 +26,6 @@ headers_dc = {
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "ko-KR,ko;q=0.9"
     }
-
-# 목적에 맞는 헤더를 설정한다
-headers = headers_dc
 
 
 ###############################################################################
@@ -121,9 +118,9 @@ def is_date_between(target_date_str, start_date_str, end_date_str):
 
 # 텍스트를 정제하여 영어, 숫자, 공백, ASCII 특수문자만 남깁니다.
 def clean_text(text):
-    pattern = r"[^a-zA-Z0-9\s!\"#$%&'()*+,\-./:;<=>?@\[\\\]\^_`{|}~]"
+    pattern = r"[^a-zA-Z0-9\s!\"#$%&'()*+,\-./:;<=>?@\[\\\]\^_`{|}~\u00C0-\u00FF]"
     cleaned_text = re.sub(pattern, "", text)
     if cleaned_text and len(cleaned_text) >= 1:
         return cleaned_text
     else:
-        return "temp_name"
+        return "cleaned_txt"
