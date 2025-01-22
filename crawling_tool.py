@@ -12,7 +12,7 @@ from selenium import webdriver
 #############################################################################
 #                                 << 설정값 >>
 # dcinside 헤더 :  dcinside 봇 차단을 위한 헤더 설정
-headers_dc = {
+headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
         "Connection": "keep-alive",
         "Cache-Control": "max-age=0",
@@ -26,9 +26,6 @@ headers_dc = {
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "ko-KR,ko;q=0.9"
     }
-
-# 목적에 맞는 헤더를 설정한다
-headers = headers_dc
 
 
 ###############################################################################
