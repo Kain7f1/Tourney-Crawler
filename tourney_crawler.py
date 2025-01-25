@@ -7,10 +7,8 @@
 from datetime import datetime
 from datetime import date
 import pandas as pd
-from bs4 import BeautifulSoup
 import crawling_tool as cr
 import utility_module as util
-import time
 
 
 # url : 타겟 url - limitlesstcg 종료된 토너먼트
@@ -82,7 +80,6 @@ def crawl_tourney_result(url, start_date_str, end_date_str=None, min_players=64)
     print(f"데이터가 {result_file_name} 파일로 저장되었습니다.")
     #
     print("crawl_tourney_result() 종료")
-
 
 def crawl_tourney_meta(tourney_result_file_name):
     df_url = pd.read_csv("./tourney_result/" + tourney_result_file_name, encoding='utf-8')

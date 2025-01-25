@@ -11,9 +11,9 @@ from tourney_crawler import crawl_tourney_result, crawl_tourney_meta
 
 target_url = "https://play.limitlesstcg.com/tournaments/completed?game=POCKET&show=499&format=STANDARD&platform=all&type=online&time=all"
 start_date_str = '2024-12-19'
-# end_date_str = '2025-01-16'
+end_date_str = '2025-01-25'
 
-crawl_tourney_result(target_url, start_date_str, min_players=128)
+crawl_tourney_result(target_url, start_date_str, end_date_str, min_players=128)
 
 # --------------------------------------------------
 # 2. 덱 별 배틀 결과 수집
