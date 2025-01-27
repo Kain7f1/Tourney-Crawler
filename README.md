@@ -1,4 +1,5 @@
 # Tourney-Crawler
+"포켓몬 카드 게임 포켓" 대회 사이트 limitlesstcg.com의 데이터 크롤링 및 통계 분석
 Crawling information about Pokémon TCG Pocket Tournaments from limitlesstcg.com
 - Python 3.8
 
